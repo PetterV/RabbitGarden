@@ -52,6 +52,9 @@ TagManager:
   - name: Player
     uniqueID: 740543629
     locked: 0
+  - name: CuriousCreatures
+    uniqueID: 1802306555
+    locked: 0
   - name: UI
     uniqueID: 2205324621
     locked: 0
