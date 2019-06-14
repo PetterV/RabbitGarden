@@ -5,22 +5,18 @@ using UnityEngine;
 public class RabbitInventory : MonoBehaviour
 {
 	public int food = 0;
-    // Start is called before the first frame update
+    GameController gameController;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        gameController = GameObject.Find("GameController").GetComponent<GameController>();
     }
 
     void OnTriggerEnter2D(Collider2D col){
     	if (col.gameObject.tag == "Food"){
     		food += 1;
     		Destroy(col.gameObject);
+            gameController.UpdateCarrotCount();
     	}
     }
 }

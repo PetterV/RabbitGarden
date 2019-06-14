@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Wall
   - Food
+  - LevelController
   layers:
   - Default
   - TransparentFX
@@ -49,11 +50,11 @@ TagManager:
   - name: Pickups
     uniqueID: 2126605369
     locked: 0
-  - name: Player
-    uniqueID: 740543629
-    locked: 0
   - name: CuriousCreatures
     uniqueID: 1802306555
+    locked: 0
+  - name: Player
+    uniqueID: 740543629
     locked: 0
   - name: UI
     uniqueID: 2205324621

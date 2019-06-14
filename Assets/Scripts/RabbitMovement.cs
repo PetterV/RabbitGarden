@@ -8,6 +8,8 @@ public class RabbitMovement : MonoBehaviour
 	public bool readyToStart = false;
 	public bool moveActive = false;
 	public bool moving = false;
+    public bool frozen = false;
+
 	bool movingUp = false;
 	bool movingUpIsValid = true;
 	bool movingLeft = false;
@@ -20,6 +22,7 @@ public class RabbitMovement : MonoBehaviour
 	// Speed Controls
 	public float defaultMoveDistance = 0.1f;
 	public float moveDistance;
+    public float actualMoveDistance;
 	
 	// Move delay and timer - unclear if they're needed
 	//public float moveSpeed = 0.05f;
@@ -36,6 +39,13 @@ public class RabbitMovement : MonoBehaviour
 	public float boostCooldownTime = 1f;
 	public float boostCooldown = 0f;
 	public float boostSpeed = 0.3f;
+
+    public float obstacleModifier = 1.0f;
+
+    float freezeDuration;
+    float freezeTimer = 0.0f;
+    float shakeSpeed = 40.0f;
+    float shakeAmount = 0.003f;
 
 
 	// Collider
@@ -73,12 +83,36 @@ public class RabbitMovement : MonoBehaviour
     		}
     	}
 
-        if(readyToStart && Input.GetKeyDown("down")){
-	    	readyToStart = false;
-	    	moveActive = true;
-        	ChangeToDown();
+        actualMoveDistance = moveDistance * obstacleModifier;
+
+        // Start setup
+        if (readyToStart) {
+            if (Input.GetKeyDown("down") || Input.GetKeyDown("left") || Input.GetKeyDown("right") || Input.GetKeyDown("up"))
+            {
+                readyToStart = false;
+                moveActive = true;
+                GameObject.Find("GameController").GetComponent<GameController>().runIsActive = true;
+                
+                if (Input.GetKeyDown("down"))
+                {
+                    ChangeToDown();
+                }
+                if (Input.GetKeyDown("up"))
+                {
+                    ChangeToUp();
+                }
+                if (Input.GetKeyDown("left"))
+                {
+                    ChangeToLeft();
+                }
+                if (Input.GetKeyDown("right"))
+                {
+                    ChangeToRight();
+                }
+            }
         }
 
+        // Change direction while moving
         if (moveActive){
 	        if (Input.GetKey("down")){
 	        	ChangeToDown();
@@ -97,63 +131,85 @@ public class RabbitMovement : MonoBehaviour
 	        }
         }
 
-       // if ( moveNow ) { - Tied to the timer
-        	if ( movingDown && movingDownIsValid ) {
-        		MoveDown();
-        	}
-        	if ( movingLeft && movingLeftIsValid ) {
-        		MoveLeft();
-        	}
-        	if ( movingUp && movingUpIsValid ) {
-        		MoveUp();
-        	}
-        	if ( movingRight && movingRightIsValid ) {
-        		MoveRight();
-        	}
+        // if ( moveNow ) { - Tied to the timer
+        if (!frozen)
+        {
+            if (movingDown && movingDownIsValid)
+            {
+                MoveDown();
+            }
+            if (movingLeft && movingLeftIsValid)
+            {
+                MoveLeft();
+            }
+            if (movingUp && movingUpIsValid)
+            {
+                MoveUp();
+            }
+            if (movingRight && movingRightIsValid)
+            {
+                MoveRight();
+            }
+        }
+        else
+        {
+            //TODO: Add freeze "animation" here
+            freezeTimer += Time.deltaTime;
+            if (freezeTimer >= freezeDuration)
+            {
+                Unfreeze();
+            }
+            else
+            {
+                float shakePositionX = transform.position.x + Mathf.Sin(Time.time * shakeSpeed) * shakeAmount;
+                Vector2 newPosition = new Vector2(shakePositionX, transform.position.y);
+                transform.position = newPosition;
+            }
+        }
         //} 
     }
 
     void ChangeToDown(){
 		DeactivateAllDirections();
     	movingDown = true;
-    	Debug.Log("Moving down");
+    	//Debug.Log("Moving down");
     }
 
     void ChangeToLeft(){
     	DeactivateAllDirections();
     	movingLeft = true;
-    	Debug.Log("Moving left");
+        //Debug.Log("Moving left");
     }
 
     void ChangeToUp(){
     	DeactivateAllDirections();
     	movingUp = true;
-    	Debug.Log("Moving up");
+        //Debug.Log("Moving up");
     }
 
     void ChangeToRight(){
     	DeactivateAllDirections();
     	movingRight = true;
-    	Debug.Log("Moving right");
+        //Debug.Log("Moving right");
     }
 
     void MoveDown(){
-    	Vector2 targetPosition = new Vector2(0, 0 - moveDistance);
+    	Vector2 targetPosition = new Vector2(0, 0 - actualMoveDistance);
 		transform.Translate(targetPosition);
     }
 
     void MoveLeft(){
-    	Vector2 targetPosition = new Vector2(0 - moveDistance, 0);
+    	Vector2 targetPosition = new Vector2(0 - actualMoveDistance, 0);
 		transform.Translate(targetPosition);
     }
 
     void MoveUp(){
-    	Vector2 targetPosition = new Vector2(0, 0 + moveDistance);
+    	Vector2 targetPosition = new Vector2(0, 0 + actualMoveDistance);
 		transform.Translate(targetPosition);
     }
 
     void MoveRight(){
-    	Vector2 targetPosition = new Vector2(0 + moveDistance, 0);
+    	Vector2 targetPosition = new Vector2(0 + actualMoveDistance, 0);
 		transform.Translate(targetPosition);
     }
 
@@ -203,19 +259,15 @@ public class RabbitMovement : MonoBehaviour
     void OnTriggerExit2D(Collider2D otherCollider)
     {
     	if (otherCollider.gameObject.name == "WestWall"){
-    		Debug.Log("No longer colliding with WestWall");
     		movingLeftIsValid = true;
     	}
     	else if (otherCollider.gameObject.name == "NorthWall"){
-    		Debug.Log("No longer colliding with NorthWall");
     		movingUpIsValid = true;
     	}
     	else if (otherCollider.gameObject.name == "EastWall"){
-    		Debug.Log("No longer colliding with EastWall");
     		movingRightIsValid = true;
     	}
     	else if (otherCollider.gameObject.name == "SouthWall"){
-    		Debug.Log("No longer colliding with SouthWall");
     		movingDownIsValid = true;
     	}
     }
@@ -237,5 +289,17 @@ public class RabbitMovement : MonoBehaviour
     {
         moveDistance = defaultMoveDistance;
         DeactivateAllDirections();
+    }
+
+    public void Freeze(float frozenFor)
+    {
+        frozen = true;
+        freezeDuration = frozenFor;
+        freezeTimer = 0.0f;
+    }
+
+    public void Unfreeze()
+    {
+        frozen = false;
     }
 }

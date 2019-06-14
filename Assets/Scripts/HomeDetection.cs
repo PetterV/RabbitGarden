@@ -57,8 +57,12 @@ public class HomeDetection : MonoBehaviour
     {
         if (onRun && col.gameObject == player)
         {
-            onRun = false;
-            finishRun = true;
+            // TODO: Check that GameController accepts the number of carrots collected
+            if (gameController.carrotRatioFinishable)
+            {
+                onRun = false;
+                finishRun = true;
+            }
         }
     }
 }
