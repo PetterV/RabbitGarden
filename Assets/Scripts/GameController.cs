@@ -43,6 +43,7 @@ public class GameController : MonoBehaviour
     TextMeshProUGUI timerText;
 
 	GameObject pauseBar;
+    GameObject touchRegistration;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,6 +57,8 @@ public class GameController : MonoBehaviour
         UpdateTimer();
         pauseBar = GameObject.Find("PauseBar");
         pauseBar.SetActive(false);
+        touchRegistration = GameObject.Find("TouchRegistration");
+        touchRegistration.SetActive(false);
     }
 
     // Update is called once per frame
@@ -140,6 +143,7 @@ public class GameController : MonoBehaviour
         mainMenu.SetActive(false);
         completionPanel.SetActive(false);
         homeDetection.readyToPlay = true;
+        touchRegistration.SetActive(true);
     }
 
     public void Quit()

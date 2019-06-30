@@ -818,6 +818,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1520102538}
+    - target: {fileID: 770904283100527876, guid: 9751ea36ca56eeb4c92439c832ef9295,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.9500122
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9751ea36ca56eeb4c92439c832ef9295, type: 3}
 --- !u!1001 &819135440955362523
@@ -975,16 +980,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4971417575977759599, guid: 9f385f12c1cf7f6408466cb5e8ea0695,
-        type: 3}
-      propertyPath: m_Name
-      value: Hole
-      objectReference: {fileID: 0}
     - target: {fileID: 4971417575977759595, guid: 9f385f12c1cf7f6408466cb5e8ea0695,
         type: 3}
       propertyPath: player
       value: 
       objectReference: {fileID: 785861059}
+    - target: {fileID: 4971417575977759599, guid: 9f385f12c1cf7f6408466cb5e8ea0695,
+        type: 3}
+      propertyPath: m_Name
+      value: Hole
+      objectReference: {fileID: 0}
     - target: {fileID: 4971417575977759594, guid: 9f385f12c1cf7f6408466cb5e8ea0695,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1049,6 +1054,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
+        type: 3}
+      propertyPath: player
+      value: 
+      objectReference: {fileID: 785861059}
+    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
+        type: 3}
+      propertyPath: homeDetection
+      value: 
+      objectReference: {fileID: 106855765}
+    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
+        type: 3}
+      propertyPath: mainMenu
+      value: 
+      objectReference: {fileID: 146478951}
+    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
+        type: 3}
+      propertyPath: completionPanel
+      value: 
+      objectReference: {fileID: 1165710456}
     - target: {fileID: 5591700345522229557, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
         type: 3}
       propertyPath: m_Name
@@ -1109,26 +1134,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
-        type: 3}
-      propertyPath: player
-      value: 
-      objectReference: {fileID: 785861059}
-    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
-        type: 3}
-      propertyPath: homeDetection
-      value: 
-      objectReference: {fileID: 106855765}
-    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
-        type: 3}
-      propertyPath: mainMenu
-      value: 
-      objectReference: {fileID: 146478951}
-    - target: {fileID: 5591700345522229559, guid: 1ba4950834a7f3349a4cddf9f716cdaf,
-        type: 3}
-      propertyPath: completionPanel
-      value: 
-      objectReference: {fileID: 1165710456}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1ba4950834a7f3349a4cddf9f716cdaf, type: 3}
 --- !u!1001 &6052400568413354859

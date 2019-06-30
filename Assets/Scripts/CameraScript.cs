@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Camera : MonoBehaviour
+public class CameraScript : MonoBehaviour
 {
     public GameObject player;
     public RabbitMovement rabbitMovement;
@@ -11,6 +11,8 @@ public class Camera : MonoBehaviour
     // Use this for initialization
     public void Start()
     {
+        Vector3 startPosition = new Vector3(player.transform.position.x, player.transform.position.y, -10);
+        transform.position = startPosition;
         //Calculate and store the offset value by getting the distance between the player's position and camera's position.
         offset = transform.position - player.transform.position;
         rabbitMovement = player.GetComponent<RabbitMovement>();

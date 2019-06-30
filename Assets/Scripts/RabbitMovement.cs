@@ -89,10 +89,6 @@ public class RabbitMovement : MonoBehaviour
         if (readyToStart) {
             if (Input.GetKeyDown("down") || Input.GetKeyDown("left") || Input.GetKeyDown("right") || Input.GetKeyDown("up"))
             {
-                readyToStart = false;
-                moveActive = true;
-                GameObject.Find("GameController").GetComponent<GameController>().runIsActive = true;
-                
                 if (Input.GetKeyDown("down"))
                 {
                     ChangeToDown();
@@ -169,27 +165,51 @@ public class RabbitMovement : MonoBehaviour
         //} 
     }
 
-    void ChangeToDown(){
+    public void ChangeToDown(){
 		DeactivateAllDirections();
     	movingDown = true;
-    	//Debug.Log("Moving down");
+        if (readyToStart)
+        {
+            readyToStart = false;
+            moveActive = true;
+            GameObject.Find("GameController").GetComponent<GameController>().runIsActive = true;
+        }
+        //Debug.Log("Moving down");
     }
 
-    void ChangeToLeft(){
+    public void ChangeToLeft(){
     	DeactivateAllDirections();
     	movingLeft = true;
+        if (readyToStart)
+        {
+            readyToStart = false;
+            moveActive = true;
+            GameObject.Find("GameController").GetComponent<GameController>().runIsActive = true;
+        }
         //Debug.Log("Moving left");
     }
 
-    void ChangeToUp(){
+    public void ChangeToUp(){
     	DeactivateAllDirections();
     	movingUp = true;
+        if (readyToStart)
+        {
+            readyToStart = false;
+            moveActive = true;
+            GameObject.Find("GameController").GetComponent<GameController>().runIsActive = true;
+        }
         //Debug.Log("Moving up");
     }
 
-    void ChangeToRight(){
+    public void ChangeToRight(){
     	DeactivateAllDirections();
     	movingRight = true;
+        if (readyToStart)
+        {
+            readyToStart = false;
+            moveActive = true;
+            GameObject.Find("GameController").GetComponent<GameController>().runIsActive = true;
+        }
         //Debug.Log("Moving right");
     }
 
